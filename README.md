@@ -1,7 +1,7 @@
 vertabelo-sqlalchemy
 ====================
 
-Converts a database model designed in [Vertabelo|http://vertabelo.com] to SQLAlchemy mapping classes.
+Converts a database model designed in Vertabelo (http://vertabelo.com) to SQLAlchemy (http://www.sqlalchemy.org/) mapping classes.
 
 Instalation
 -----------
