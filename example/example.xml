@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DatabaseModel VersionId="2.1">
+    <ModelGid>none</ModelGid>
+    <ModelVersionGid>none</ModelVersionGid>
+    <Counters>
+        <Counter>
+            <Name>table</Name>
+            <Value>5</Value>
+            <Prefix>t</Prefix>
+        </Counter>
+        <Counter>
+            <Name>column</Name>
+            <Value>20</Value>
+            <Prefix>c</Prefix>
+        </Counter>
+        <Counter>
+            <Name>index</Name>
+            <Value>0</Value>
+            <Prefix>i</Prefix>
+        </Counter>
+        <Counter>
+            <Name>reference</Name>
+            <Value>5</Value>
+            <Prefix>r</Prefix>
+        </Counter>
+        <Counter>
+            <Name>table_check</Name>
+            <Value>0</Value>
+            <Prefix>tc</Prefix>
+        </Counter>
+        <Counter>
+            <Name>alternate_key</Name>
+            <Value>0</Value>
+            <Prefix>a</Prefix>
+        </Counter>
+        <Counter>
+            <Name>sequence</Name>
+            <Value>0</Value>
+            <Prefix>s</Prefix>
+        </Counter>
+        <Counter>
+            <Name>note</Name>
+            <Value>1</Value>
+            <Prefix>n</Prefix>
+        </Counter>
+        <Counter>
+            <Name>view</Name>
+            <Value>0</Value>
+            <Prefix>v</Prefix>
+        </Counter>
+        <Counter>
+            <Name>view_column</Name>
+            <Value>0</Value>
+            <Prefix>vc</Prefix>
+        </Counter>
+        <Counter>
+            <Name>area</Name>
+            <Value>0</Value>
+            <Prefix>ar</Prefix>
+        </Counter>
+        <Counter>
+            <Name>text</Name>
+            <Value>0</Value>
+            <Prefix>tx</Prefix>
+        </Counter>
+        <Counter>
+            <Name>tableDisplay</Name>
+            <Value>5</Value>
+            <Prefix>td</Prefix>
+        </Counter>
+        <Counter>
+            <Name>referenceDisplay</Name>
+            <Value>5</Value>
+            <Prefix>rd</Prefix>
+        </Counter>
+        <Counter>
+            <Name>viewDisplay</Name>
+            <Value>0</Value>
+            <Prefix>vd</Prefix>
+        </Counter>
+    </Counters>
+    <AdditionalSQLBeforeCreate></AdditionalSQLBeforeCreate>
+    <AdditionalSQLAfterCreate></AdditionalSQLAfterCreate>
+    <AdditionalSQLBeforeDrop></AdditionalSQLBeforeDrop>
+    <AdditionalSQLAfterDrop></AdditionalSQLAfterDrop>
+    <Tables>
+        <Table Id="t1">
+            <Name>order</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c1">
+                    <Name>id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c2">
+                    <Name>order_no</Name>
+                    <Type>character(12)</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c3">
+                    <Name>client_id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Table>
+        <Table Id="t2">
+            <Name>product</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c4">
+                    <Name>id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c5">
+                    <Name>product_category_id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c6">
+                    <Name>sku</Name>
+                    <Type>character(10)</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c7">
+                    <Name>name</Name>
+                    <Type>varchar(255)</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c8">
+                    <Name>price</Name>
+                    <Type>decimal(12,2)</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c9">
+                    <Name>description</Name>
+                    <Type>varchar(1000)</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c10">
+                    <Name>image</Name>
+                    <Type>blob</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Table>
+        <Table Id="t3">
+            <Name>order_item</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c11">
+                    <Name>id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c12">
+                    <Name>order_id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c13">
+                    <Name>product_id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c14">
+                    <Name>amount</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Table>
+        <Table Id="t4">
+            <Name>product_category</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c15">
+                    <Name>id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c16">
+                    <Name>name</Name>
+                    <Type>varchar(255)</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c17">
+                    <Name>parent_category_id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Table>
+        <Table Id="t5">
+            <Name>client</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c18">
+                    <Name>id</Name>
+                    <Type>integer</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c19">
+                    <Name>full_name</Name>
+                    <Type>varchar(255)</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c20">
+                    <Name>email</Name>
+                    <Type>varchar(255)</Type>
+                    <Description>describe me please</Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Table>
+    </Tables>
+    <Views/>
+    <References>
+        <Reference Id="r1">
+            <Name>order_order_item</Name>
+            <Description></Description>
+            <PKTable>t1</PKTable>
+            <FKTable>t3</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c1</PKColumn>
+                    <FKColumn>c12</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r2">
+            <Name>product_order_item</Name>
+            <Description></Description>
+            <PKTable>t2</PKTable>
+            <FKTable>t3</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c4</PKColumn>
+                    <FKColumn>c13</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r3">
+            <Name>client_order</Name>
+            <Description></Description>
+            <PKTable>t5</PKTable>
+            <FKTable>t1</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c18</PKColumn>
+                    <FKColumn>c3</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r4">
+            <Name>product_category_product_category</Name>
+            <Description></Description>
+            <PKTable>t4</PKTable>
+            <FKTable>t4</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c15</PKColumn>
+                    <FKColumn>c17</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>false</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r5">
+            <Name>product_category_product</Name>
+            <Description></Description>
+            <PKTable>t4</PKTable>
+            <FKTable>t2</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c15</PKColumn>
+                    <FKColumn>c5</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+    </References>
+    <Sequences/>
+    <Notes>
+        <Note Id="n1">
+            <Name>Note 1</Name>
+            <Content>This is an example database model. 
+
+You can change, enhance or delete it.
+</Content>
+            <DisplayInfo>
+                <X>4562.5</X>
+                <Y>4647.5</Y>
+                <Width>435.0</Width>
+                <Height>62.0</Height>
+                <LineColor>#000000</LineColor>
+                <FillColor>#fff9c3</FillColor>
+            </DisplayInfo>
+        </Note>
+    </Notes>
+    <Areas/>
+    <Texts/>
+    <TableDisplays>
+        <TableDisplay Id="td0">
+            <X>4562.5</X>
+            <Y>4898.5</Y>
+            <Width>170.0</Width>
+            <Height>91.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t1</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td1">
+            <X>5072.5</X>
+            <Y>4905.5</Y>
+            <Width>240.0</Width>
+            <Height>135.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t2</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td2">
+            <X>4805.5</X>
+            <Y>4899.5</Y>
+            <Width>170.0</Width>
+            <Height>91.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t3</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td3">
+            <X>5078.5</X>
+            <Y>5091.5</Y>
+            <Width>230.0</Width>
+            <Height>84.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t4</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td4">
+            <X>4560.5</X>
+            <Y>4757.5</Y>
+            <Width>175.0</Width>
+            <Height>80.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t5</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+    </TableDisplays>
+    <ViewDisplays/>
+    <ReferenceDisplays>
+        <ReferenceDisplay Id="rd0">
+            <Color>#000000</Color>
+            <ControlPointsType>Horizontal_4CP</ControlPointsType>
+            <ControlPoint>
+                <X>4632.5</X>
+                <Y>4914.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4713.0</X>
+                <Y>4914.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4713.0</X>
+                <Y>4944.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4831.5</X>
+                <Y>4944.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td0</PkTableDisplay>
+            <FkTableDisplay>td2</FkTableDisplay>
+            <Reference>r1</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd1">
+            <Color>#000000</Color>
+            <ControlPointsType>Horizontal_4CP</ControlPointsType>
+            <ControlPoint>
+                <X>5122.5</X>
+                <Y>4939.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4988.5</X>
+                <Y>4939.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4988.5</X>
+                <Y>4937.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4881.5</X>
+                <Y>4937.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td1</PkTableDisplay>
+            <FkTableDisplay>td2</FkTableDisplay>
+            <Reference>r2</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd2">
+            <Color>#000000</Color>
+            <ControlPointsType>Vertical_4CP</ControlPointsType>
+            <ControlPoint>
+                <X>4705.5</X>
+                <Y>4782.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4705.5</X>
+                <Y>4785.0</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4635.5</X>
+                <Y>4785.0</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4635.5</X>
+                <Y>4966.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td4</PkTableDisplay>
+            <FkTableDisplay>td0</FkTableDisplay>
+            <Reference>r3</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd3">
+            <Color>#000000</Color>
+            <ControlPointsType>Self_5CP</ControlPointsType>
+            <ControlPoint>
+                <X>5204.5</X>
+                <Y>5147.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5204.5</X>
+                <Y>5215.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5357.5</X>
+                <Y>5215.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5357.5</X>
+                <Y>5147.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5166.5</X>
+                <Y>5147.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td3</PkTableDisplay>
+            <FkTableDisplay>td3</FkTableDisplay>
+            <Reference>r4</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd4">
+            <Color>#000000</Color>
+            <ControlPointsType>Vertical_4CP</ControlPointsType>
+            <ControlPoint>
+                <X>5195.5</X>
+                <Y>5128.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5195.5</X>
+                <Y>4954.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5189.5</X>
+                <Y>4954.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5189.5</X>
+                <Y>4992.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td3</PkTableDisplay>
+            <FkTableDisplay>td1</FkTableDisplay>
+            <Reference>r5</Reference>
+        </ReferenceDisplay>
+    </ReferenceDisplays>
+    <Properties>
+        <Property>
+            <Name>pdf-printer-paper-size</Name>
+            <Value>A4</Value>
+        </Property>
+        <Property>
+            <Name>pdf-printer-margin-top</Name>
+            <Value>10</Value>
+        </Property>
+        <Property>
+            <Name>pdf-printer-margin-bottom</Name>
+            <Value>10</Value>
+        </Property>
+        <Property>
+            <Name>pdf-printer-margin-left</Name>
+            <Value>10</Value>
+        </Property>
+        <Property>
+            <Name>pdf-printer-margin-right</Name>
+            <Value>10</Value>
+        </Property>
+        <Property>
+            <Name>pdf-printer-page-orientation</Name>
+            <Value>landscape</Value>
+        </Property>
+        <Property>
+            <Name>pdf-printer-show-pages</Name>
+            <Value>true</Value>
+        </Property>
+        <Property>
+            <Name>pdf-printer-include-footer</Name>
+            <Value>true</Value>
+        </Property>
+    </Properties>
+</DatabaseModel>
