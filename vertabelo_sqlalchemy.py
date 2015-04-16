@@ -412,7 +412,7 @@ clob_sql_types = set(['text', 'clob'])
 datetime_sql_types = set(['datetime'])
 timestamp_sql_types = set(['timestamp'])
 date_sql_types = set(['date'])
-bool_sql_types = set(['bool'])
+bool_sql_types = set(['bool', 'boolean'])
 
 
 class Generator():
