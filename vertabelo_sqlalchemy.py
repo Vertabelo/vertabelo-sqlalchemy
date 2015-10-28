@@ -386,7 +386,7 @@ class SaModel():
 		emiter.emit("import sqlalchemy")
 		emiter.emit("from sqlalchemy import create_engine")
 		emiter.emit("from sqlalchemy.ext.declarative import declarative_base")
-		emiter.emit("from sqlalchemy import Column, Integer, BigInteger,String, ForeignKey, Unicode, Binary, LargeBinary, Time, DateTime, Date, Text, Boolean")
+		emiter.emit("from sqlalchemy import Column, Integer, BigInteger,String, ForeignKey, Unicode, Binary, LargeBinary, Time, DateTime, Date, Text, Boolean, Float")
 		emiter.emit("from sqlalchemy.orm import relationship, backref, deferred")
 		emiter.emit("from sqlalchemy.orm import sessionmaker")
 		emiter.nl()
@@ -405,7 +405,8 @@ class SaModel():
 ## this is a temporary solution
 
 string_sql_types = set(["varchar","char","nchar","nvarchar"])
-integer_sql_types = set(['int', 'int4','integer'])
+integer_sql_types = set(['int', 'int4','integer', 'serial'])
+float_sql_type = set(['real', 'float'])
 big_integer_sql_types = set(['numeric','decimal'])
 blob_sql_types = set(['oid', 'blob'])
 clob_sql_types = set(['text', 'clob'])
@@ -438,6 +439,9 @@ class Generator():
 
 		if(type in integer_sql_types):
 			return "Integer"
+
+		if(type in float_sql_type):
+			return "Float"
 
 		if(type in big_integer_sql_types):
 			return "BigInteger"
