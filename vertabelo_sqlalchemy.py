@@ -46,7 +46,9 @@ class CodeEmiter():
 		if(content == None or content == ""):
 			return
 
-		self.emit("# " + content)
+		lines = content.split(self.endLineContent)
+		for line in lines:
+			self.emit("# " + line)
 
 	def nl(self):
 		self.output += self.endLineContent
