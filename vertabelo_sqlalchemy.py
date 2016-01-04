@@ -70,7 +70,7 @@ def find_subnode_by_name(node, sub_name):
 	for i in node.childNodes:
 		if(i.nodeName == sub_name):
 			return i
-	raise Exception, "couldn't find tag '%s' in '%s'" % (sub_name, node)
+	raise Exception("couldn't find tag '%s' in '%s'" % (sub_name, node))
 
 
 def subnode_value(node, sub_name):
@@ -112,7 +112,7 @@ class Column():
 		return "<Column(name='%s' type='%s' pk='%s')>"  % (self.name, self.sql_type, self.is_pk) 
 
 	def dump(self):
-		print str(self)
+		print(str(self))
 
 class Table():
 
@@ -135,7 +135,7 @@ class Table():
 			if(i.id == id):
 				return i
 
-		raise Exception, "Database model is corrupted. Couldn't find column with id: " + id
+		raise Exception("Database model is corrupted. Couldn't find column with id: " + id)
 
 	def build(self, xmlNode):
 		self.id = xmlNode.attributes['Id'].value
@@ -157,7 +157,7 @@ class Table():
 		return "<Table(name='%s') columns=%d>"  % (self.name, len(self.columns))
 
 	def dump(self):
-		print str(self)
+		print (str(self))
 		for i in self.columns:
 			i.dump()
 
@@ -227,7 +227,7 @@ class Reference():
 		return "<Reference(name='%s')>"  % (self.name)
 
 	def dump(self):
-		print str(self)
+		print(str(self))
 
 
 class DbModel():
@@ -246,7 +246,7 @@ class DbModel():
 			if(i.id == id):
 				return i
 
-		raise Exception, "Database model is corrupted. Couldn't find table with id: " + id
+		raise Exception("Database model is corrupted. Couldn't find table with id: " + id)
 
 	def build(self,xmlRoot):
 
@@ -269,7 +269,7 @@ class DbModel():
 				self.references.append(r)
 
 	def dump(self):
-		print "Model"
+		print("Model")
 		for i in self.tables:
 			i.dump()
 
@@ -366,7 +366,7 @@ class SaClass():
 			c.emit(emiter)
 
 			
- 		if(len(self.relationships) > 0):
+		if(len(self.relationships) > 0):
 			emiter.nl()
 			for r in self.relationships:
 				r.emit(emiter)
@@ -573,7 +573,7 @@ def generate(xmlFile, pyFile):
 	g.parse(xml)
 	g.process();
 
-	outf = open(pyFile, "w")
+	outf = open(pyFile, "wb")
 	outf.write(g.code())
 	outf.close()
 
@@ -587,11 +587,11 @@ def main(argv):
 	try:
 		opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
 	except getopt.GetoptError:
-		print 'vertabelo_sqlalchemy.py -i <inputfile> -o <outputfile>'
+		print('vertabelo_sqlalchemy.py -i <inputfile> -o <outputfile>')
 		sys.exit(2)
 	for opt, arg in opts:
 		if opt == '-h':
-			print 'vertabelo_sqlalchemy.py -i <inputfile> -o <outputfile>'
+			print('vertabelo_sqlalchemy.py -i <inputfile> -o <outputfile>')
 			sys.exit()
 		elif opt in ("-i", "--ifile"):
 			inputfile = arg
