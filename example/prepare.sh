@@ -5,7 +5,8 @@ rm -f example.db
 sqlite3 example.db < example_create.sql 
 sqlite3 example.db < example_data.sql 
 
-../vertabelo_sqlalchemy.py -i example.xml -o example_model.py
+python2 ../vertabelo_sqlalchemy.py -i example.xml -o example_model.py
+python3 ../vertabelo_sqlalchemy.py -i example.xml -o example_model3.py
 
 
 # Copyright 2014 Vertabelo.com <contact@vertabelo.com>
