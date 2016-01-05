@@ -18,9 +18,11 @@
 import re
 import sys
 import getopt
+import os
 from xml.dom import minidom
 from xml.dom import Node
 
+debugEnabled = os.getenv('DEBUG', "0")
 
 #################################################################
 
@@ -64,22 +66,7 @@ class CodeEmiter():
 
 ################################################################
 
-## Vertabelo XML as object model.
-
-def find_subnode_by_name(node, sub_name):
-	for i in node.childNodes:
-		if(i.nodeName == sub_name):
-			return i
-	raise Exception("couldn't find tag '%s' in '%s'" % (sub_name, node))
-
-
-def subnode_value(node, sub_name):
-	node = find_subnode_by_name(node,sub_name)
-
-	if (node.firstChild == None):
-		return ""
-
-	return node.firstChild.nodeValue
+## Vertabelo model as object model
 
 class Column():
 
@@ -89,21 +76,6 @@ class Column():
 	description = None
 	is_fk = False
 	table = None
-
-	def build(self, xmlNode):
-		self.id = xmlNode.attributes['Id'].value
-		
-		self.name =  subnode_value(xmlNode,"Name")
-		self.sql_type = subnode_value(xmlNode,"Type")
-		pk = subnode_value(xmlNode,"PK")
-
-		if(pk == "true"):
-			self.is_pk = True
-		else:
-			self.is_pk = False
-
-		self.description = subnode_value(xmlNode, "Description")
-
 
 	def column_with_table_name(self):
 		return self.table.name + "." + self.name
@@ -136,21 +108,6 @@ class Table():
 				return i
 
 		raise Exception("Database model is corrupted. Couldn't find column with id: " + id)
-
-	def build(self, xmlNode):
-		self.id = xmlNode.attributes['Id'].value
-
-		self.name = subnode_value(xmlNode,"Name")
-		self.description = subnode_value(xmlNode, "Description")
-
-		columns = find_subnode_by_name(xmlNode, "Columns").childNodes
-
-		for i in columns:
-			if(i.nodeType == Node.ELEMENT_NODE):
-				c = Column()
-				c.build(i)
-				c.table = self
-				self.columns.append(c)
 
 	
 	def __repr__(self):
@@ -185,44 +142,6 @@ class Reference():
 		self.pk_columns = []
 		self.name = ""
 
-	def build(self, xmlNode):
-
-		self.id = xmlNode.attributes['Id'].value
-
-		self.name = subnode_value(xmlNode, "Name")
-		self.description = subnode_value(xmlNode, "Description")
-
-		pkTableId = subnode_value(xmlNode, "PKTable")
-		fkTableId = subnode_value(xmlNode, "FKTable")
-
-		self.pk_role = subnode_value(xmlNode, "PKRole")
-		self.fk_role = subnode_value(xmlNode, "FKRole")
-
-		self.pk_table = self.dbModel.findTable(pkTableId)
-		self.fk_table = self.dbModel.findTable(fkTableId)
-
-		self.pk_table.pk_references.append(self)
-		self.fk_table.fk_references.append(self)
-
-		references = xmlNode.getElementsByTagName("ReferenceColumns")[0]
-
-		for i in references.childNodes:
-			if(i.nodeType == Node.ELEMENT_NODE):
-
-				pkColumnId = subnode_value(i, "PKColumn")
-				fkColumnId = subnode_value(i, "FKColumn")
-
-				pk_column = self.pk_table.findColumn(pkColumnId)
-				fk_column = self.fk_table.findColumn(fkColumnId)
-
-				self.pk_columns.append(pk_column)
-				self.fk_columns.append(fk_column)
-
-				fk_column.is_fk = True
-				fk_column.pk_column = pk_column
-
-
-
 	def __repr__(self):
 		return "<Reference(name='%s')>"  % (self.name)
 
@@ -248,30 +167,129 @@ class DbModel():
 
 		raise Exception("Database model is corrupted. Couldn't find table with id: " + id)
 
+
+	def dump(self):
+		print("Model")
+		for i in self.tables:
+			i.dump()
+
+
+# Vertabelo 2.2 builder,
+# builds a Vertabelo object model by parsing XML (version 2.2)
+
+def find_subnode_by_name(node, sub_name):
+	for i in node.childNodes:
+		if(i.nodeName == sub_name):
+			return i
+	raise Exception("couldn't find tag '%s' in '%s'" % (sub_name, node))
+
+
+def subnode_value(node, sub_name):
+	node = find_subnode_by_name(node,sub_name)
+
+	if (node.firstChild == None):
+		return ""
+
+	return node.firstChild.nodeValue
+
+class DbModelBuilder_v2_2:
+
+
+	def buildReference(self, reference, xmlNode):
+
+		reference.id = xmlNode.attributes['Id'].value
+
+		reference.name = subnode_value(xmlNode, "Name")
+		reference.description = subnode_value(xmlNode, "Description")
+
+		pkTableId = subnode_value(xmlNode, "PKTable")
+		fkTableId = subnode_value(xmlNode, "FKTable")
+
+		reference.pk_role = subnode_value(xmlNode, "PKRole")
+		reference.fk_role = subnode_value(xmlNode, "FKRole")
+
+		reference.pk_table = reference.dbModel.findTable(pkTableId)
+		reference.fk_table = reference.dbModel.findTable(fkTableId)
+
+		reference.pk_table.pk_references.append(reference)
+		reference.fk_table.fk_references.append(reference)
+
+		references = xmlNode.getElementsByTagName("ReferenceColumns")[0]
+
+		for i in references.childNodes:
+			if(i.nodeType == Node.ELEMENT_NODE):
+
+				pkColumnId = subnode_value(i, "PKColumn")
+				fkColumnId = subnode_value(i, "FKColumn")
+
+				pk_column = reference.pk_table.findColumn(pkColumnId)
+				fk_column = reference.fk_table.findColumn(fkColumnId)
+
+				reference.pk_columns.append(pk_column)
+				reference.fk_columns.append(fk_column)
+
+				fk_column.is_fk = True
+				fk_column.pk_column = pk_column
+
+
+	def buildTable(self, table, xmlNode):
+		table.id = xmlNode.attributes['Id'].value
+
+		table.name = subnode_value(xmlNode,"Name")
+		table.description = subnode_value(xmlNode, "Description")
+
+		columns = find_subnode_by_name(xmlNode, "Columns").childNodes
+
+		for i in columns:
+			if(i.nodeType == Node.ELEMENT_NODE):
+				c = Column()
+				self.buildColumn(c,i)
+				c.table = table
+				table.columns.append(c)
+
+
+	def buildColumn(self, column, xmlNode):
+		column.id = xmlNode.attributes['Id'].value
+		
+		column.name =  subnode_value(xmlNode,"Name")
+		column.sql_type = subnode_value(xmlNode,"Type")
+		pk = subnode_value(xmlNode,"PK")
+
+		if(pk == "true"):
+			column.is_pk = True
+		else:
+			column.is_pk = False
+
+		column.description = subnode_value(xmlNode, "Description")
+		return column
+
+
 	def build(self,xmlRoot):
+
+		dbModel = DbModel()
+
 
 		tables = xmlRoot.getElementsByTagName('Tables')[0]
 
 		for i in tables.childNodes:
 			if(i.nodeType == Node.ELEMENT_NODE):
 				t = Table()
-				t.dbModel = self
-				t.build(i)
-				self.tables.append(t)
+				t.dbModel = dbModel
+				self.buildTable(t,i)
+				dbModel.tables.append(t)
 
 		references = xmlRoot.getElementsByTagName('References')[0]
 
 		for i in references.childNodes:
 			if(i.nodeType == Node.ELEMENT_NODE):
 				r = Reference()
-				r.dbModel = self
-				r.build(i)
-				self.references.append(r)
+				r.dbModel = dbModel
+				self.buildReference(r,i)
+				dbModel.references.append(r)
 
-	def dump(self):
-		print("Model")
-		for i in self.tables:
-			i.dump()
+		return dbModel
+
+
 
 #################################################################
 
@@ -550,8 +568,13 @@ class Generator():
 
 
 	def process(self):
-		self.dbModel = DbModel()
-		self.dbModel.build(self.root)
+
+		##
+		## FIXME check XML version and call appriopriate builder 
+		##
+		builder = DbModelBuilder_v2_2()
+
+		self.dbModel = builder.build(self.root)
 
 		self.saModel = SaModel()
 
@@ -572,6 +595,9 @@ def generate(xmlFile, pyFile):
 	g = Generator();
 	g.parse(xml)
 	g.process();
+
+	if debugEnabled == "1":
+		g.dbModel.dump()
 
 	outf = open(pyFile, "wb")
 	outf.write(g.code())
