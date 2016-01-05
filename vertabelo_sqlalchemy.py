@@ -289,6 +289,126 @@ class DbModelBuilder_v2_2:
 
 		return dbModel
 
+#
+# Instead of inherintance we using just copy and paste. 
+#
+
+class DbModelBuilder_v2_3:
+
+
+	def buildReference(self, reference, xmlNode):
+
+		reference.id = xmlNode.attributes['Id'].value
+
+		reference.name = subnode_value(xmlNode, "Name")
+		reference.description = subnode_value(xmlNode, "Description")
+
+		pkTableId = subnode_value(xmlNode, "PKTable")
+		fkTableId = subnode_value(xmlNode, "FKTable")
+
+		reference.pk_role = subnode_value(xmlNode, "PKRole")
+		reference.fk_role = subnode_value(xmlNode, "FKRole")
+
+		reference.pk_table = reference.dbModel.findTable(pkTableId)
+		reference.fk_table = reference.dbModel.findTable(fkTableId)
+
+		reference.pk_table.pk_references.append(reference)
+		reference.fk_table.fk_references.append(reference)
+
+		references = xmlNode.getElementsByTagName("ReferenceColumns")[0]
+
+		for i in references.childNodes:
+			if(i.nodeType == Node.ELEMENT_NODE):
+
+				pkColumnId = subnode_value(i, "PKColumn")
+				fkColumnId = subnode_value(i, "FKColumn")
+
+				pk_column = reference.pk_table.findColumn(pkColumnId)
+				fk_column = reference.fk_table.findColumn(fkColumnId)
+
+				reference.pk_columns.append(pk_column)
+				reference.fk_columns.append(fk_column)
+
+				fk_column.is_fk = True
+				fk_column.pk_column = pk_column
+
+
+	def buildTable(self, table, xmlNode):
+		table.id = xmlNode.attributes['Id'].value
+
+		table.name = subnode_value(xmlNode,"Name")
+		table.description = subnode_value(xmlNode, "Description")
+
+		columns = find_subnode_by_name(xmlNode, "Columns").childNodes
+
+		
+		pkColumnIds = self.pkColumnIds(xmlNode)
+
+		for i in columns:
+			if(i.nodeType == Node.ELEMENT_NODE):
+				c = Column()
+				self.buildColumn(c, pkColumnIds, i)
+				c.table = table
+				table.columns.append(c)
+
+	def pkColumnIds(self, xmlNode):
+
+		res = set()
+
+		primaryKey = find_subnode_by_name(xmlNode, "PrimaryKey")
+
+		primaryKeyColumns = find_subnode_by_name(primaryKey, "Columns").childNodes
+		
+		for i in primaryKeyColumns:
+			if(i.nodeType == Node.ELEMENT_NODE):
+				columnId = i.firstChild.nodeValue
+				res.add(columnId)
+
+		return res
+
+
+
+	def buildColumn(self, column, pkColumnIds, xmlNode):
+		column.id = xmlNode.attributes['Id'].value
+		
+		column.name =  subnode_value(xmlNode,"Name")
+		column.sql_type = subnode_value(xmlNode,"Type")
+	
+		column.description = subnode_value(xmlNode, "Description")
+
+		if column.id in pkColumnIds:
+			column.is_pk = True
+		else:
+			column.is_pk = False
+
+
+		return column
+
+
+	def build(self,xmlRoot):
+
+		dbModel = DbModel()
+
+
+		tables = xmlRoot.getElementsByTagName('Tables')[0]
+
+		for i in tables.childNodes:
+			if(i.nodeType == Node.ELEMENT_NODE):
+				t = Table()
+				t.dbModel = dbModel
+				self.buildTable(t,i)
+				dbModel.tables.append(t)
+
+		references = xmlRoot.getElementsByTagName('References')[0]
+
+		for i in references.childNodes:
+			if(i.nodeType == Node.ELEMENT_NODE):
+				r = Reference()
+				r.dbModel = dbModel
+				self.buildReference(r,i)
+				dbModel.references.append(r)
+
+		return dbModel
 
 
 #################################################################
@@ -569,11 +689,21 @@ class Generator():
 
 	def process(self):
 
-		##
-		## FIXME check XML version and call appriopriate builder 
-		##
-		builder = DbModelBuilder_v2_2()
 
+		databaseModel =  self.root.getElementsByTagName('DatabaseModel')
+
+		if len(databaseModel) == 0:
+			raise Exception("This is not a Vertabelo XML file.")
+
+		version  = databaseModel[0].attributes['VersionId'].value
+
+		if version == "2.2":
+			builder = DbModelBuilder_v2_2()
+		elif version == "2.3":
+			builder = DbModelBuilder_v2_3()
+		else:
+			raise Exception("Not supported Vertabelo XML format version %s" % (version))
+		
 		self.dbModel = builder.build(self.root)
 
 		self.saModel = SaModel()
