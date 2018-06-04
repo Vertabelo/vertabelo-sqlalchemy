@@ -526,7 +526,7 @@ class SaModel():
 		emiter.emit("import sqlalchemy")
 		emiter.emit("from sqlalchemy import create_engine")
 		emiter.emit("from sqlalchemy.ext.declarative import declarative_base")
-		emiter.emit("from sqlalchemy import Column, Integer, BigInteger,String, ForeignKey, Unicode, Binary, LargeBinary, Time, DateTime, Date, Text, Boolean, Float")
+		emiter.emit("from sqlalchemy import Column, Integer, BigInteger, String, ForeignKey, Unicode, Binary, LargeBinary, Time, DateTime, Date, Text, Boolean, Float, JSON")
 		emiter.emit("from sqlalchemy.orm import relationship, backref, deferred")
 		emiter.emit("from sqlalchemy.orm import sessionmaker")
 		emiter.nl()
@@ -554,6 +554,7 @@ datetime_sql_types = set(['datetime'])
 timestamp_sql_types = set(['timestamp'])
 date_sql_types = set(['date'])
 bool_sql_types = set(['bool', 'boolean'])
+json_sql_types = set(['json'])
 
 
 class Generator():
@@ -603,6 +604,9 @@ class Generator():
 		
 		if(type in bool_sql_types):
 			return "Boolean"
+		
+		if(type in json_sql_types):
+			return "JSON"
 
 		return None
 
